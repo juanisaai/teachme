@@ -22,11 +22,11 @@ class CreateTicketCommentsTable extends Migration {
 
 			//Referencia al usuario
 			$table->integer('user_id')->unsigned();
-			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
 			//referencia al ticket
 			$table->integer('ticket_id')->unsigned();
-			$table->foreign('ticket_id')->references('id')->on('tickets');
+			$table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
 
 			$table->timestamps();
 		});
