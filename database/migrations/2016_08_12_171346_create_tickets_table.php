@@ -16,7 +16,7 @@ class CreateTicketsTable extends Migration {
 		{
 			$table->increments('id');
 
-			$table->string('tittle', 200);
+			$table->string('title', 200);
 			$table->enum('status', ['open', 'closed']);
 
 			//Relación con ID->Users

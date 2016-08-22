@@ -7,26 +7,42 @@
  */
 
 
-use Illuminate\Database\Seeder;
+use database\seeds\BaseSeeder;
+use Faker\Generator;
 use TeachMe\Entities\User;
 
 use Faker\Factory as Faker;
 
-class UserTableSeeder extends Seeder {
+class UserTableSeeder extends BaseSeeder {
+
+    public function getModel()
+    {
+        return new User();
+    }
+
+    public function getDummyData(Generator $faker, array $customValues = array())
+    {
+        return [
+            'name' => $faker->name,
+            'email' => $faker->email,
+            'type' => 'User',
+            'password' => bcrypt('secret')
+        ];
+    }
 
 
     public function run()
     {
         $this->createAdmin();
 
-        $this->createUsers(50);
+        $this->createMultiple(50);
 
     }
 
     private function createAdmin()
     {
 
-        User::create([
+        $this->create([
             'name' => 'Juan Isai',
             'email' => 'isai@cxz.com',
             'type' => 'Admin',
@@ -35,20 +51,5 @@ class UserTableSeeder extends Seeder {
 
     }
 
-    public function createUsers($total)
-    {
-        $faker = Faker::create();
-
-        for ($i = 0; $i < $total; $i++) {
-
-            User::create([
-                'name' => $faker->name,
-                'email' => $faker->email,
-                'type' => 'User',
-                'password' => bcrypt('secret')
-            ]);
-
-        }
-    }
-
 }
+
